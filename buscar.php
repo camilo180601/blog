@@ -1,25 +1,20 @@
-<?php require_once 'includes/conexion.php'; ?>
-<?php require_once 'includes/helpers.php'; ?>
+
 <?php
     if(!isset($_POST['busqueda'])){
         header('location: index.php');
     }
-    $busqueda = conseguirEntradas($db, $_POST['busqueda']);
-
-    if(!isset($categoria_actual['id'])){
-        header('Location: index.php');
-    }
+    
 ?>
 <?php require_once 'includes/header.php'; ?>
 <?php require_once 'includes/lateral.php'; ?>
 
 <div id="principal">
     
-    <h1>Entradas de <?= $categoria_actual['nombre'] ?></h1>
+    <h1>Busqueda: <?= $_POST['busqueda'] ?></h1>
     
     <?php
         
-        $entradas = conseguirEntradas($db, null, $_GET['id']);
+        $entradas = conseguirEntradas($db, null, null, $_POST['busqueda']);
         if(!empty($entradas) && mysqli_num_rows($entradas) >=1 ):
             while($entrada = mysqli_fetch_assoc($entradas)):
     ?>
